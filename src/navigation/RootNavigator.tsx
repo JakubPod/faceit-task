@@ -8,7 +8,7 @@ import { AuthorScreen, FeedScreen, PostScreen } from "../screens";
 export type RootNavigatorParamList = {
   Feed: undefined;
   Post: { postId: number };
-  Author: { userId: string };
+  Author: { userId: number };
 };
 
 const Stack = createNativeStackNavigator<RootNavigatorParamList>();

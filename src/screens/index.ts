@@ -1,3 +1,3 @@
-export * from "./AuthorScreen";
-export * from "./FeedScreen";
-export * from "./PostScreen";
+export * from "./AuthorScreen/AuthorScreen";
+export * from "./FeedScreen/FeedScreen";
+export * from "./PostScreen/PostScreen";

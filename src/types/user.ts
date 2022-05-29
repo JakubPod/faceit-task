@@ -1,5 +1,8 @@
+import { ImageSourcePropType } from "react-native";
+
 export interface User {
   id: number;
   username: string;
-  avatarUrl: string;
+  avatar: ImageSourcePropType;
+  joinedOnTimestampMs: number;
 }

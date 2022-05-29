@@ -5,5 +5,7 @@ export const getRandomTimestamp = () => {
   const maxTimestamp = Date.now();
   const minTimestamp = maxTimestamp - MONTH_IN_MILLISECONDS;
 
-  return Math.floor(minTimestamp + Math.random() * maxTimestamp - minTimestamp);
+  return Math.floor(
+    minTimestamp + Math.random() * (maxTimestamp - minTimestamp)
+  );
 };
