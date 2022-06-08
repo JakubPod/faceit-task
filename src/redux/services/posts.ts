@@ -7,10 +7,9 @@ const postsApi = api.injectEndpoints({
     getPosts: builder.query<Post[], void>({
       query: () => "posts",
       transformResponse: (response: Omit<Post, "timestampMs">[]) =>
-        response.slice(0, 10).map((post, index) => ({
+        response.map((post, index) => ({
           ...post,
-          userId: index + 1,
-          timestampMs: timestamps[index],
+          timestampMs: timestamps[index % timestamps.length],
         })),
     }),
   }),

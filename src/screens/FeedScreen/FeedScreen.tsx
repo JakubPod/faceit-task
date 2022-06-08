@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import { FlatList, ListRenderItem } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { FeedScreenNavigationProp } from "../../navigation/RootNavigator";
@@ -7,16 +7,25 @@ import { StyledContainer } from "./styles";
 import { FeedItem } from "../../components/FeedItem/FeedItem";
 import { useFeedData } from "./hooks/useFeedData";
 
+const NUMBER_OF_POSTS_INCREMENT = 10;
+
 export const FeedScreen = () => {
-  const { data, refetch, isFetching } = useFeedData();
   const navigation = useNavigation<FeedScreenNavigationProp>();
+  const [numberOfPosts, setNumberOfPosts] = useState(NUMBER_OF_POSTS_INCREMENT);
+  const { data, refetch, isFetching } = useFeedData(numberOfPosts);
+  const isAllDataDisplayed = numberOfPosts > data.length;
 
-  const handlePostPress = ({ id }: Post) =>
-    navigation.navigate("Post", { postId: id });
+  const handlePostPress = useCallback(
+    ({ id }: Post) => navigation.navigate("Post", { postId: id }),
+    [navigation]
+  );
 
-  const handleCardPress = ({ id }: User) => {
-    navigation.navigate("Author", { userId: id });
-  };
+  const handleCardPress = useCallback(
+    ({ id }: User) => {
+      navigation.navigate("Author", { userId: id });
+    },
+    [navigation]
+  );
 
   const keyExtractor = (item: FeedDataItem) => String(item.id);
   const renderItem: ListRenderItem<FeedDataItem> = ({ item }) => (
@@ -28,6 +37,12 @@ export const FeedScreen = () => {
     />
   );
 
+  const handleEndReached = () => {
+    if (!isAllDataDisplayed) {
+      setNumberOfPosts((previousNumberOfPosts) => previousNumberOfPosts + 10);
+    }
+  };
+
   return (
     <StyledContainer>
       <FlatList
@@ -36,6 +51,7 @@ export const FeedScreen = () => {
         data={data}
         onRefresh={refetch}
         refreshing={isFetching}
+        onEndReached={handleEndReached}
       />
     </StyledContainer>
   );

@@ -9,7 +9,6 @@ I've also taken some shortcuts here and there to save time, i.e. using mocked da
   not abstracting some libraries, using simple styling that perhaps is not always consistent etc.
   
 On feed list overscroll new posts are fetched but there are no new posts in mocked data so nothing changes.
-Scrolling to bottom reveales older posts, but there is no pagination or anything. 
  
 Scroll position is perserved - it's out of the box feature from react-navigation.
 Author screen is there.

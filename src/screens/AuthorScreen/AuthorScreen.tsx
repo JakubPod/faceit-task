@@ -22,9 +22,7 @@ export const AuthorScreen = () => {
     return null;
   }
 
-  const joinedOn = dayjs
-    .unix(author.joinedOnTimestampMs)
-    .format("MMMM DD, YYYY");
+  const joinedOn = dayjs(author.joinedOnTimestampMs).format("MMMM DD, YYYY");
 
   return (
     <StyledContainer>

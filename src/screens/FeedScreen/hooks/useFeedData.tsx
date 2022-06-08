@@ -11,7 +11,7 @@ interface FeedData {
   refetch: VoidFunction;
 }
 
-export const useFeedData = (): FeedData => {
+export const useFeedData = (numberOfPosts = 10): FeedData => {
   const postsQuery = useGetPostsQuery();
   const usersQuery = useGetUsersQuery();
 
@@ -21,7 +21,8 @@ export const useFeedData = (): FeedData => {
   const data = posts
     .map((post) => ({ ...post, author: getUserById(users, post.userId) }))
     .filter((item): item is FeedDataItem => !!item.author)
-    .sort((a, b) => b.timestampMs - a.timestampMs);
+    .sort((a, b) => b.timestampMs - a.timestampMs)
+    .slice(0, numberOfPosts);
 
   const refetch = () => {
     postsQuery.refetch();

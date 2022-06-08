@@ -13,7 +13,7 @@ const usersApi = api.injectEndpoints({
         response.map((user, index) => ({
           ...user,
           avatar: avatars[index],
-          joinedOnTimestampMs: timestamps[index + 10],
+          joinedOnTimestampMs: timestamps[index % timestamps.length],
         })),
     }),
   }),
